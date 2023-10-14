@@ -10,7 +10,7 @@ const slides = document.querySelectorAll(".slide");
 var currentIndex = 0;
 
 // 是否自动播放
-var autoPlay = true;
+var autoPlay = false;
 
 // 播放方向，前进或后退
 var forward = false;
