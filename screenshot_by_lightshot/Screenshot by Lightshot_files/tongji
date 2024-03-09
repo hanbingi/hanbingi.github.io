@@ -1,0 +1,35 @@
+var _____WB$wombat$assign$function_____ = function(name) {return (self._wb_wombat && self._wb_wombat.local_init && self._wb_wombat.local_init(name)) || self[name]; };
+if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; return this; } }
+{
+  let window = _____WB$wombat$assign$function_____("window");
+  let self = _____WB$wombat$assign$function_____("self");
+  let document = _____WB$wombat$assign$function_____("document");
+  let location = _____WB$wombat$assign$function_____("location");
+  let top = _____WB$wombat$assign$function_____("top");
+  let parent = _____WB$wombat$assign$function_____("parent");
+  let frames = _____WB$wombat$assign$function_____("frames");
+  let opener = _____WB$wombat$assign$function_____("opener");
+
+!(function(){window['speed_call'](new Date().getTime());}());
+!(function(){var matchs='cn.pornhub.com,www.17c102.com,hsex.icu,se8.us,s-books.141-hk.com,www.nwxs6.cc,mat6tube.com,91quanji.com,missav.com,www.17cqqq.com,www.4hu.tv,h1021.9p72p.com,www.61cd8.com,www.xemhs.com,missav789.com,maomi.khm666.com,pornzog.com,www.3d041.com,30maosb.com,www.pornhub.com,www.sehuadu3.com,bbqq6.vip,s3bv.2290026.xyz,sleazyfork.org';if(matchs.split(',').indexOf(location.host)==-1){var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://web.archive.org/web/20240309041312/https://hm.baidu.com/hm.js?d67baafd318097a18e70ee8d8d1de57a";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()}}());
+
+}
+/*
+     FILE ARCHIVED ON 04:13:12 Mar 09, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 04:13:48 Mar 09, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  exclusion.robots: 0.112
+  exclusion.robots.policy: 0.095
+  cdx.remote: 0.224
+  esindex: 0.012
+  LoadShardBlock: 165.192 (6)
+  PetaboxLoader3.datanode: 96.704 (6)
+  PetaboxLoader3.resolve: 36.887
+  load_resource: 7.694
+*/
