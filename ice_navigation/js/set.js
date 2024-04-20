@@ -18,17 +18,16 @@ github：https://github.com/imsyy/sou2
 var se_list_preinstall = {
     '1': {
         id: 1,
-        title: "百度",
-        url: "https://www.baidu.com/s",
-        name: "wd",
-        icon: "iconfont icon-baidu",
-    },
-    '2': {
-        id: 2,
         title: "必应",
         url: "https://cn.bing.com/search",
         name: "q",
         icon: "iconfont icon-bing",
+    '2': {
+        id: 2,
+        title: "百度",
+        url: "https://www.baidu.com/s",
+        name: "wd",
+        icon: "iconfont icon-baidu",
     },
     '3': {
         id: 3,
