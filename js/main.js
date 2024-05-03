@@ -329,8 +329,8 @@ $("#switchmore").on("click", function () {
     $("#change1").html("哎呀，这都被你发现了（ 再点击一次可关闭 ）");
   } else {
     $("#container").attr("class", "container");
-    $("#change").html("Hello&nbsp;!");
-    $("#change1").html("嘿！");
+    $("#change").html("lit a light in starry sky");
+    $("#change1").html("在星空中点燃一束光");
   }
 });
 
