@@ -325,8 +325,8 @@ $("#switchmore").on("click", function () {
   shoemore = !shoemore;
   if (shoemore && $(document).width() >= 990) {
     $("#container").attr("class", "container mores");
-    $("#change").html("Oops&nbsp;!");
-    $("#change1").html("哎呀，这都被你发现了（ 再点击一次可关闭 ）");
+    $("#change").html("time as water...");
+    $("#change1").html("时间流逝如水...");
   } else {
     $("#container").attr("class", "container");
     $("#change").html("lit a light in starry sky");
