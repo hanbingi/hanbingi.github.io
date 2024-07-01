@@ -185,6 +185,31 @@
     // 每一秒钟更新一次倒计时显示
     setInterval(countdown1, 1000);
   </script>
+<p>距离我生日还有<div id="countdown2"></div></p>
+<script>
+    function countdown2() {
+      // 设置目标日期
+      var targetDate = new Date("2024-09-01");
+
+      // 获取当前日期
+      var currentDate = new Date();
+
+      // 计算剩余时间（毫秒单位）
+      var remainingTime = targetDate - currentDate;
+
+      // 计算剩余天数、小时、分钟和秒数
+      var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+      // 更新倒计时显示
+      document.getElementById("countdown2").innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+    }
+
+    // 每一秒钟更新一次倒计时显示
+    setInterval(countdown1, 1000);
+  </script>
 <hr>
 <h2>车站</h2>
 <p>目前站点：初中 下一站：高中 预计还有<div id="countdown"></div>到达</p><script>
