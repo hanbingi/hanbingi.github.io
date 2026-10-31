@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+    <title>寒冰丨ice</title>
+    <meta name="description" content="00后，学生">
+    <meta name="keywords" content="Java,Spring,个人博客，微信小程序，博客">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.css">
+    <script>
+        document.documentElement.classList.add('loading');
+    </script>
+    <script type="text/javascript">
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
+            alert('朋友，上古浏览器不支持呢~');
+        }
+    </script>
+    <style>
+        /* ========== 加载动画 ========== */
+        html.loading,
+        html.loading body {
+            overflow: hidden !important;
+        }
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 40%, #14224a 0%, #060b1f 45%, #000000 100%);
+            transition: opacity .8s ease, visibility .8s ease;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-ring {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 3px solid rgba(126, 200, 255, 0.15);
+            border-top-color: #7ec8ff;
+            border-right-color: rgba(126, 200, 255, 0.55);
+            animation: loaderSpin 1s linear infinite;
+            box-shadow: 0 0 24px rgba(126, 200, 255, 0.35),
+                        inset 0 0 12px rgba(126, 200, 255, 0.15);
+        }
+        @keyframes loaderSpin { to { transform: rotate(360deg); } }
+        .loader-text {
+            margin-top: 22px;
+            color: #d6e9ff;
+            letter-spacing: 5px;
+            font-size: 14px;
+            text-shadow: 0 0 10px rgba(126, 200, 255, 0.85),
+                         0 0 22px rgba(80, 140, 255, 0.5);
+            animation: loaderPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes loaderPulse {
+            0%, 100% { opacity: .45; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== 滚动支持 ========== */
+        html, body {
+            height: auto !important;
+            min-height: 100% !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+        }
+
+        /* ========== 夜空背景层 ========== */
+        #night-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background: linear-gradient(to bottom, #000000 0%, #5788fe 100%);
+        }
+        #night-bg .filter {
+            width: 100%; height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            background: #fe5757;
+            animation: colorChange 30s ease-in-out infinite;
+            animation-fill-mode: both;
+            mix-blend-mode: overlay;
+        }
+        @keyframes colorChange {
+            0%, 100% { opacity: 0; }
+            50% { opacity: .9; }
+        }
+        #night-bg .landscape {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('img/xkbg.png');
+            background-size: 1000px 250px;
+            background-repeat: repeat-x;
+            background-position: center bottom;
+        }
+        #night-bg canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* ========== 内容层 ========== */
+        #body-wrap {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 70vh;
+        }
+
+        body,
+        #body-wrap,
+        nav, #nav,
+        .not_index_bg,
+        #content-outer, #content-inner,
+        #footer,
+        .aside_content {
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+
+        /* ========== 玻璃拟态 ========== */
+        .card-widget,
+        #page,
+        #footer-wrap {
+            background: rgba(255, 255, 255, 0.035) !important;
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+            border-radius: 14px !important;
+        }
+        .card-widget .card-content,
+        #page .article-container,
+        #footer-wrap .copyright {
+            background: transparent !important;
+        }
+
+        /* ========== 导航条：纯透明 ========== */
+        #nav,
+        #nav .not_index_bg,
+        #page_site-info,
+        #site-title,
+        #site-title .blogtitle {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        /* ========== 全局文字色 ========== */
+        #body-wrap * {
+            color: rgba(235, 245, 255, 0.92);
+        }
+        #body-wrap a,
+        #body-wrap a * {
+            color: #7ec8ff !important;
+            text-decoration: none;
+            transition: color .3s, text-shadow .3s;
+        }
+        #body-wrap a:hover,
+        #body-wrap a:hover * {
+            color: #b6e0ff !important;
+            text-shadow: 0 0 8px rgba(126, 200, 255, .75);
+        }
+
+        /* ========== 标题发光 ========== */
+        #site-title .blogtitle {
+            color: #d6e9ff !important;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 0 0 12px rgba(126, 200, 255, .9),
+                         0 0 28px rgba(80, 140, 255, .6),
+                         0 2px 4px rgba(0, 0, 0, .5);
+        }
+        #site-title .typed-cursor {
+            color: #7ec8ff !important;
+            text-shadow: 0 0 12px rgba(126, 200, 255, .9);
+        }
+
+        /* ========== 细节修饰 ========== */
+        #page hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg,
+                        transparent,
+                        rgba(126, 200, 255, .5),
+                        transparent) !important;
+            margin: 20px 0 !important;
+        }
+
+        /* 技能条：改成与卡片一致的玻璃效果 */
+        .skillbar {
+            background: rgba(255, 255, 255, 0.035) !important;
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+            border-radius: 10px !important;
+            overflow: hidden;
+        }
+        .skillbar-title span {
+            color: #fff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+        }
+        .skill-bar-percent {
+            color: rgba(235, 245, 255, 0.85) !important;
+        }
+
+        /* ========== APlayer ========== */
+        .aplayer {
+            background: rgba(255, 255, 255, 0.06) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 10px !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .18) !important;
+        }
+        .aplayer .aplayer-info .aplayer-music .aplayer-title,
+        .aplayer .aplayer-info .aplayer-music .aplayer-author,
+        .aplayer .aplayer-time .aplayer-icon,
+        .aplayer .aplayer-info .aplayer-controller .aplayer-time {
+            color: rgba(255, 255, 255, .9) !important;
+            fill: rgba(255, 255, 255, .9) !important;
+        }
+        .aplayer .aplayer-bar-wrap .aplayer-bar {
+            background: rgba(255, 255, 255, .22) !important;
+        }
+        .aplayer .aplayer-bar-wrap .aplayer-bar .aplayer-loaded {
+            background: rgba(255, 255, 255, .35) !important;
+        }
+        .aplayer .aplayer-bar-wrap .aplayer-bar .aplayer-played {
+            background: #7ec8ff !important;
+        }
+        .aplayer .aplayer-list {
+            background: rgba(255, 255, 255, .03) !important;
+        }
+        .aplayer .aplayer-list ol li {
+            color: rgba(255, 255, 255, .85) !important;
+            border-top: 1px solid rgba(255, 255, 255, .08) !important;
+        }
+        .aplayer .aplayer-list ol li.aplayer-list-light {
+            background: rgba(255, 255, 255, .07) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">正在加载中…</div>
+    </div>
+
+    <div id="night-bg">
+        <div class="landscape"></div>
+        <div class="filter"></div>
+        <canvas id="meteor-canvas"></canvas>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="body-wrap">
+        <nav class="not_index_bg" id="nav">
+            <div id="page_site-info">
+                <div id="site-title">
+                    <span class="blogtitle"></span>
+                    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                    <script>
+                        var typed = new Typed(".blogtitle", {
+                            strings: ['现在出发！', 'Start in now!'],
+                            startDelay: 300,
+                            typeSpeed: 100,
+                            loop: true,
+                            backSpeed: 50,
+                            showCursor: true
+                        });
+                    </script>
+                </div>
+            </div>
+        </nav>
+        <main id="content-outer">
+            <div class="layout_page" id="content-inner">
+                <div class="aside_content" id="aside_content">
+                    <div class="card-widget card-info">
+                        <div class="card-content">
+                            <div class="card-info-avatar is-center">
+                                <img class="avatar-img"
+                                    src="https://q1.qlogo.cn/g?b=qq&nk=167499304&s=640"
+                                    alt="avatar">
+                                <div class="author-info__name">寒冰</div>
+                                <div class="author-info__description">00后，学生</div>
+                            </div>
+                            <div class="card-info-social-icons is-center"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-widget card-announcement">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                                <span>一言</span>
+                            </div>
+                            <div id="hitokoto"></div>
+                        </div>
+                    </div>
+                    <div class="card-widget card-announcement">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <span>今日诗词</span>
+                            </div>
+                            <div id="jinrishici-sentence"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-widget card-webinfo">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                <span>站点信息</span>
+                            </div>
+                            <div class="webinfo">
+                                <div class="webinfo-item">
+                                    <div class="webinfo-site-uv-name">本站访客数 :</div>
+                                    <div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div>
+                                </div>
+                                <div class="webinfo-item">
+                                    <div class="webinfo-site-name">本站总访问量 :</div>
+                                    <div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <article id="page">
+                    <div class="article-container">
+                        <h2>音乐</h2>
+<meting-js
+    server="netease"
+    type="playlist"
+    id="7079411923"
+>
+</meting-js>                        <hr>
+
+                        <h2>技能</h2>
+                        <div class="skillbox">
+                            <div class="skillbar">
+                                <div class="skillbar-title"
+                                    style="background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%); width: 75%">
+                                    <span>学习</span>
+                                </div>
+                                <div class="skill-bar-percent">75%</div>
+                            </div>
+                            <div class="skillbar">
+                                <div class="skillbar-title"
+                                    style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 75%">
+                                    <span>英语</span>
+                                </div>
+                                <div class="skill-bar-percent">75%</div>
+                            </div>
+                            <div class="skillbar">
+                                <div class="skillbar-title"
+                                    style="background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%); width: 60%">
+                                    <span>前端</span>
+                                </div>
+                                <div class="skill-bar-percent">60%</div>
+                            </div>
+                            <div class="skillbar">
+                                <div class="skillbar-title"
+                                    style="background: linear-gradient(to right, #00BCD4 0%, #80DEEA 100%); width: 60%">
+                                    <span>信息技术</span>
+                                </div>
+                                <div class="skill-bar-percent">60%</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <hr>
+                        <h2>我的账号</h2>
+<a href="https://space.bilibili.com/2070774552?spm_id_from=333.1007.0.0">bilibili</a><br>
+<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=167499304&amp;site=qq&amp;menu=yes">QQ</a><br>
+<a href="https://hanbingi.github.io/page_more/">游戏账号</a>
+<hr>
+                        <h2>其他网站</h2>
+                        <div>
+                            <a href="https://ihanbingi.github.io/">寒冰的网站</a><br>
+                            <a href="https://hanbingi.github.io/photos/">寒冰的相册</a><br>
+                            <a href="https://hanbingi.github.io/download/">寒冰做的一些东西</a><br>
+<a href="https://hanbing.github.io/minecraft_ai">我的世界</a><br>
+<a href="https://hanbingi.github.io/more/">更多</a><br>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" async></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <script src="https://unpkg.com/nplayer@latest/dist/index.min.js"></script>
+    <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.8/js/maodian.js"></script>
+
+    <!-- ========== 加载动画控制 ========== -->
+    <script>
+    (function() {
+        var startedAt = Date.now();
+        var MIN_TIME = 400;
+        var APLAYER_TIMEOUT = 10000;
+
+        function removeLoader() {
+            var loader = document.getElementById('loader');
+            if (!loader) return;
+            loader.classList.add('hidden');
+            document.documentElement.classList.remove('loading');
+            setTimeout(function() { loader.remove(); }, 900);
+        }
+
+        function hideLoader() {
+            var elapsed = Date.now() - startedAt;
+            var delay = Math.max(0, MIN_TIME - elapsed);
+            setTimeout(removeLoader, delay);
+        }
+
+        function waitWindowLoad() {
+            if (document.readyState === 'complete') return Promise.resolve();
+            return new Promise(function(resolve) {
+                window.addEventListener('load', resolve, { once: true });
+            });
+        }
+
+        function waitAllImages() {
+            var imgs = Array.prototype.slice.call(document.images);
+            return Promise.all(imgs.map(function(img) {
+                if (img.complete) return Promise.resolve();
+                return new Promise(function(resolve) {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            }));
+        }
+
+        function waitFonts() {
+            if (document.fonts && document.fonts.ready) {
+                return document.fonts.ready.then(function(){}, function(){});
+            }
+            return Promise.resolve();
+        }
+
+        function waitMeting(maxWait) {
+            return new Promise(function(resolve) {
+                if (document.querySelector('.aplayer')) return resolve();
+                var timer = setTimeout(resolve, maxWait || 10000);
+                var observer = new MutationObserver(function() {
+                    if (document.querySelector('.aplayer')) {
+                        observer.disconnect();
+                        clearTimeout(timer);
+                        resolve();
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            });
+        }
+
+        Promise.all([
+            waitWindowLoad(),
+            waitAllImages(),
+            waitFonts(),
+            waitMeting(APLAYER_TIMEOUT)
+        ]).then(hideLoader).catch(hideLoader);
+    })();
+    </script>
+
+    <script type="text/javascript">
+        console.clear();
+        console.log("%c 有朋自远方来, 不亦说乎.", "background:#24272A; color:#ffffff", "");
+        console.log("%c Github %c", "background:#24272A; color:#ffffff", "", "https://github.com/laoxuai");
+        console.log("%c 版本号: %c", "background:#24272A; color:#ffffff", "", "1.0.0");
+
+        var OriginTitle = document.title;
+        var titleTime;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                document.title = '╭(°A°`)╮ 页面崩溃啦 ~';
+                clearTimeout(titleTime);
+            } else {
+                $('[rel="icon"]').attr('href', "/favicon.ico");
+                document.title = '(ฅ>ω<*ฅ) 噫又好啦 ~' + OriginTitle;
+                titleTime = setTimeout(function () {
+                    document.title = OriginTitle;
+                }, 2000);
+            }
+        });
+    </script>
+
+    <!-- ========== 星空 + 鼠标连线 + 流星 ========== -->
+    <script>
+    /* ---------- 星空 ---------- */
+    function Star(id, x, y){
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.r = Math.floor(Math.random()*2)+1;
+        var alpha = (Math.floor(Math.random()*10)+1)/10/2;
+        this.color = "rgba(255,255,255,"+alpha+")";
+    }
+    Star.prototype.draw = function() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = this.r * 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+    }
+    Star.prototype.move = function() {
+        this.y -= .15;
+        if (this.y <= -10) this.y = HEIGHT + 10;
+        this.draw();
+    }
+
+    /* ---------- 鼠标连线 Dot ---------- */
+    function Dot(id, x, y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.r = Math.floor(Math.random()*5)+1;
+        this.speed = .5;
+        this.a = .5;
+        this.aReduction = .005;
+        this.dead = false;
+        this.color = "rgba(255,255,255,"+this.a+")";
+        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
+        this.dir = Math.floor(Math.random()*140)+200;
+    }
+    Dot.prototype.draw = function() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = this.r * 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+    }
+    Dot.prototype.link = function() {
+        if (this.id == 0) return;
+        var p1 = getPreviousDot(this.id, 1);
+        var p2 = getPreviousDot(this.id, 2);
+        var p3 = getPreviousDot(this.id, 3);
+        if (!p1) return;
+        ctx.strokeStyle = this.linkColor;
+        ctx.moveTo(p1.x, p1.y);
+        ctx.beginPath();
+        ctx.lineTo(this.x, this.y);
+        if (p2) ctx.lineTo(p2.x, p2.y);
+        if (p3) ctx.lineTo(p3.x, p3.y);
+        ctx.stroke();
+        ctx.closePath();
+    }
+    function getPreviousDot(id, stepback) {
+        if (id == 0 || id - stepback < 0) return false;
+        var d = dots[id - stepback];
+        if (d && !d.dead) return d;
+        return false;
+    }
+    Dot.prototype.move = function() {
+        if (this.dead) return;
+        this.a -= this.aReduction;
+        if (this.a <= 0) { this.die(); return; }
+        this.color = "rgba(255,255,255,"+this.a+")";
+        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
+        this.x += Math.cos(degToRad(this.dir))*this.speed;
+        this.y += Math.sin(degToRad(this.dir))*this.speed;
+        this.draw();
+        this.link();
+    }
+    Dot.prototype.die = function() {
+        // 只标记，不删除。数组会在 drawIfMouseMoving 里压实
+        this.dead = true;
+    }
+
+    /* ---------- 流星 ---------- */
+    function Meteor(initialDelay) {
+        this.reset((initialDelay || 0) + Math.random() * 2500);
+    }
+    Meteor.prototype.reset = function(delay) {
+        this.x = Math.random() * WIDTH * 1.4;
+        this.y = -Math.random() * HEIGHT * 0.6 - 100;
+        this.len = Math.random() * 180 + 140;
+        this.speed = Math.random() * 6 + 6;
+        this.angle = Math.PI / 4;
+        this.opacity = Math.random() * 0.5 + 0.4;
+        this.width = Math.random() * 1.5 + 1;
+        this.active = false;
+        this.startAt = performance.now() + delay;
+    };
+    Meteor.prototype.update = function(now) {
+        if (!this.active) {
+            if (now >= this.startAt) this.active = true;
+            else return;
+        }
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        var tailY = this.y - Math.sin(this.angle) * this.len;
+        if (this.y > HEIGHT + 100 || tailY > HEIGHT + 50 || this.x - this.len > WIDTH + 100) {
+            this.reset(Math.random() * 2500 + 800);
+        }
+    };
+    Meteor.prototype.draw = function() {
+        if (!this.active) return;
+        var tailX = this.x - Math.cos(this.angle) * this.len;
+        var tailY = this.y - Math.sin(this.angle) * this.len;
+
+        var grad = mctx.createLinearGradient(this.x, this.y, tailX, tailY);
+        grad.addColorStop(0,   'rgba(255,255,255,' + this.opacity + ')');
+        grad.addColorStop(0.25,'rgba(200,220,255,' + (this.opacity*0.65) + ')');
+        grad.addColorStop(1,   'rgba(255,255,255,0)');
+        mctx.strokeStyle = grad;
+        mctx.lineWidth = this.width;
+        mctx.lineCap = 'round';
+        mctx.beginPath();
+        mctx.moveTo(this.x, this.y);
+        mctx.lineTo(tailX, tailY);
+        mctx.stroke();
+
+        var headGrad = mctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 5);
+        headGrad.addColorStop(0, 'rgba(255,255,255,' + this.opacity + ')');
+        headGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        mctx.fillStyle = headGrad;
+        mctx.beginPath();
+        mctx.arc(this.x, this.y, 5, 0, Math.PI*2);
+        mctx.fill();
+    };
+
+    /* ---------- 初始化 ---------- */
+    var canvas = document.getElementById('canvas'),
+        ctx    = canvas.getContext('2d'),
+        meteorCanvas = document.getElementById('meteor-canvas'),
+        mctx         = meteorCanvas.getContext('2d'),
+        WIDTH, HEIGHT,
+        mouseMoving = false,
+        mouseMoveChecker,
+        mouseX, mouseY,
+        stars = [],
+        initStarsPopulation = 80,
+        dots = [],
+        meteors = [],
+        dotsMinDist = 2,
+        maxDistFromCursor = 50;
+
+    setCanvasSize();
+    init();
+
+    function setCanvasSize() {
+        WIDTH  = document.documentElement.clientWidth;
+        HEIGHT = document.documentElement.clientHeight;
+        canvas.setAttribute("width", WIDTH);
+        canvas.setAttribute("height", HEIGHT);
+        meteorCanvas.setAttribute("width", WIDTH);
+        meteorCanvas.setAttribute("height", HEIGHT);
+    }
+
+    function init() {
+        ctx.strokeStyle = "white";
+        ctx.shadowColor = "white";
+        for (var i = 0; i < initStarsPopulation; i++) {
+            stars[i] = new Star(i, Math.floor(Math.random()*WIDTH), Math.floor(Math.random()*HEIGHT));
+        }
+        ctx.shadowBlur = 0;
+
+        for (var i = 0; i < 6; i++) {
+            meteors.push(new Meteor(i * 1500));
+        }
+
+        animate();
+    }
+
+    function animate(now) {
+        if (!now) now = performance.now();
+
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        mctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        for (var i in stars) stars[i].move();
+        for (var i in dots) {
+            if (dots[i] && !dots[i].dead) dots[i].move();
+        }
+        drawIfMouseMoving();
+
+        for (var i = 0; i < meteors.length; i++) {
+            meteors[i].update(now);
+            meteors[i].draw();
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    /* 用 addEventListener，避免被其它库（maodian.js 等）的 onmousemove 赋值覆盖 */
+    window.addEventListener('mousemove', function(e){
+        mouseMoving = true;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        clearTimeout(mouseMoveChecker);
+        mouseMoveChecker = setTimeout(function(){
+            mouseMoving = false;
+        }, 100);
+    }, { passive: true });
+
+    window.onresize = function(){
+        setCanvasSize();
+    };
+
+    function drawIfMouseMoving(){
+        if (!mouseMoving) return;
+
+        // 关键修复：调用前先压实数组，移除所有 dead dots，重排 id
+        var alive = [];
+        for (var i = 0; i < dots.length; i++) {
+            if (dots[i] && !dots[i].dead) {
+                dots[i].id = alive.length;
+                alive.push(dots[i]);
+            }
+        }
+        dots = alive;
+
+        if (dots.length == 0) {
+            dots[0] = new Dot(0, mouseX, mouseY);
+            dots[0].draw();
+            return;
+        }
+
+        var previousDot = dots[dots.length - 1];
+        var prevX = previousDot.x;
+        var prevY = previousDot.y;
+
+        var diffX = Math.abs(prevX - mouseX);
+        var diffY = Math.abs(prevY - mouseY);
+
+        if (diffX < dotsMinDist || diffY < dotsMinDist) return;
+
+        var xVariation = Math.random() > .5 ? -1 : 1;
+        xVariation = xVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
+        var yVariation = Math.random() > .5 ? -1 : 1;
+        yVariation = yVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
+        dots[dots.length] = new Dot(dots.length, mouseX+xVariation, mouseY+yVariation);
+        dots[dots.length-1].draw();
+        dots[dots.length-1].link();
+    }
+
+    function degToRad(deg) {
+        return deg * (Math.PI / 180);
+    }
+    </script>
+</body>
+<p style="display: none">https://github.com/wexuo/home</p>
+</html>
