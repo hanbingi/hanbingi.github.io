@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#2b2b2b">
+    <meta name="format-detection" content="telephone=no">
 <title>寒冰丨ice</title>
-
-<!-- ===== 移动端适配：必须加 ===== -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="format-detection" content="telephone=no">
-<meta name="theme-color" content="#1b1b1f">
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <!-- HarmonyOS Sans 字体：B 站 CDN，避免 cdn.imsyy.top 防盗链 -->
     <style>
@@ -52,366 +50,6 @@
     <!-- PWA 调试时先注释，部署到 http/https 再打开 -->
     <!-- <link rel="manifest" href="./manifest.json"> -->
 
-    <!-- ============================================================
-         移动端适配样式（放在所有 CSS 之后，保证能覆盖原样式）
-         ============================================================ -->
-    <style>
-        /* ==================== 手机端（≤768px） ==================== */
-        @media screen and (max-width: 768px) {
-
-            /* ---------- 基础：允许纵向滚动 ---------- */
-            html, body {
-                height: auto !important;
-                min-height: 100%;
-                overflow-x: hidden !important;
-                overflow-y: auto !important;
-                -webkit-text-size-adjust: 100%;
-            }
-
-            #section {
-                height: auto !important;
-                min-height: 100vh;
-                overflow: visible !important;
-            }
-
-            /* 触屏设备隐藏自定义鼠标指针 */
-            #g-pointer-1,
-            #g-pointer-2 {
-                display: none !important;
-            }
-
-            /* ---------- 主容器 ---------- */
-            #main {
-                display: block !important;
-                height: auto !important;
-                min-height: 100vh;
-                padding: 64px 14px 72px !important;
-                overflow: visible !important;
-            }
-
-            #container {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* ---------- 左右两栏 → 上下排列 ---------- */
-            #row {
-                display: flex !important;
-                flex-direction: column !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
-                margin: 0 !important;
-            }
-
-            #row > .col,
-            .col.left,
-            .col.right {
-                flex: 0 0 auto !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                padding: 0 !important;
-                margin: 0 0 16px !important;
-            }
-
-            /* ---------- 左侧个人信息 ---------- */
-            .main-left {
-                width: 100% !important;
-                margin: 0 auto !important;
-                padding: 0 !important;
-                text-align: center;
-            }
-
-            .main-img {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100% !important;
-                margin: 0 auto 18px !important;
-            }
-
-            #logo-img {
-                width: 96px !important;
-                height: 96px !important;
-                max-width: 96px !important;
-                object-fit: cover;
-                border-radius: 50%;
-            }
-
-            .main-img .img-title {
-                display: flex !important;
-                align-items: baseline;
-                justify-content: center;
-                gap: 4px;
-                margin-top: 10px;
-            }
-
-            .img-title-big { font-size: 1.5rem !important; }
-            .img-text      { font-size: 0.95rem !important; }
-
-            /* 介绍卡片 */
-            .message,
-            .message.cards {
-                width: 100% !important;
-                margin: 0 0 16px !important;
-                padding: 16px !important;
-                box-sizing: border-box;
-            }
-
-            .des { font-size: 0.9rem !important; line-height: 1.7; }
-            .des i { font-size: 0.8rem !important; }
-
-            /* 社交图标 */
-            .social {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                align-items: center;
-                justify-content: center !important;
-                gap: 10px;
-                width: 100% !important;
-                margin: 0 auto !important;
-            }
-
-            .social .link {
-                width: 42px !important;
-                height: 42px !important;
-                line-height: 42px !important;
-                margin: 0 !important;
-                font-size: 1.1rem !important;
-            }
-
-            #link-text {
-                flex: 0 0 100%;
-                width: 100% !important;
-                margin: 6px 0 0 !important;
-                text-align: center;
-                font-size: 0.75rem !important;
-            }
-
-            /* ---------- 右侧功能区 ---------- */
-            .main-right {
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* 一言 + 时间 上下堆叠 */
-            .rightone {
-                display: flex !important;
-                flex-direction: column !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
-                margin: 0 !important;
-            }
-
-            .rightone > .col {
-                flex: 0 0 auto !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                padding: 0 !important;
-                margin: 0 0 14px !important;
-            }
-
-            .hitokoto,
-            .time {
-                width: 100% !important;
-                min-height: 110px;
-                padding: 16px !important;
-                box-sizing: border-box;
-            }
-
-            .hitokoto-text { font-size: 0.95rem !important; line-height: 1.6; }
-            .hitokoto-from { font-size: 0.8rem !important; }
-
-            .timeshow  { font-size: 0.95rem !important; line-height: 1.6; }
-            .time-text { font-size: 1.5rem !important; font-weight: 600; }
-            .weather   { font-size: 0.8rem !important; margin-top: 6px; }
-
-            /* 打开音乐播放器按钮 */
-            .open-music {
-                top: 10px !important;
-                right: 12px !important;
-                left: auto !important;
-                width: auto !important;
-                padding: 6px 12px !important;
-                font-size: 0.78rem !important;
-                z-index: 10;
-            }
-
-            /* 音乐控制条 */
-            .music-control { gap: 18px; }
-            .music-text    { font-size: 0.85rem !important; }
-
-            /* ---------- 分隔线 & 网站列表 ---------- */
-            .line      { margin: 18px 0 14px !important; }
-            .line-text { font-size: 0.85rem !important; }
-
-            .link .row,
-            .more .row {
-                display: flex !important;
-                flex-direction: column !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
-                margin: 0 !important;
-            }
-
-            .link .row > .col,
-            .more .row > .col {
-                flex: 0 0 auto !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                padding: 0 !important;
-                margin: 0 0 12px !important;
-            }
-
-            .link-card {
-                width: 100% !important;
-                box-sizing: border-box;
-            }
-
-            .link-name { font-size: 0.9rem !important; }
-
-            /* ---------- 菜单按钮 ---------- */
-            .menu {
-                position: fixed !important;
-                right: 16px !important;
-                bottom: 78px !important;
-                left: auto !important;
-                top: auto !important;
-                z-index: 1000;
-            }
-
-            .menu .munu-button {
-                width: 48px !important;
-                height: 48px !important;
-                line-height: 48px !important;
-                font-size: 1.15rem !important;
-            }
-
-            /* ---------- 更多内容面板 ---------- */
-            .more {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 62px 16px 40px !important;
-                border-radius: 0 !important;
-                box-sizing: border-box;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch;
-                z-index: 1001;
-            }
-
-            /* 时间胶囊 */
-            .date        { width: 100% !important; }
-            .date .item  { width: 100% !important; margin-bottom: 14px; }
-            .date-text   { font-size: 0.8rem !important; }
-
-            /* 关闭按钮 */
-            .close,
-            .closebox {
-                top: 14px !important;
-                right: 16px !important;
-                left: auto !important;
-                font-size: 1.6rem !important;
-                z-index: 1002;
-            }
-
-            /* ---------- 更多页面 / 音乐播放器 ---------- */
-            .box {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 16px !important;
-                box-sizing: border-box;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch;
-                z-index: 1003;
-            }
-
-            .box-wrapper {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                height: auto !important;
-                max-height: none !important;
-                max-width: 100% !important;
-            }
-
-            .box-left,
-            .box-right {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 0 16px !important;
-                padding: 0 !important;
-            }
-
-            .box-right { min-height: 280px; }
-            #aplayer   { width: 100% !important; }
-
-            .accordion-button { font-size: 0.85rem !important; }
-
-            /* ---------- 页脚 ---------- */
-            #footer {
-                position: fixed !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                padding: 8px 12px !important;
-                font-size: 0.7rem !important;
-                background: rgba(0, 0, 0, .28);
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                z-index: 999;
-            }
-
-            #power,
-            #made { font-size: 0.7rem !important; }
-
-            #lrc {
-                font-size: 0.7rem !important;
-                text-align: center;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-
-        /* ==================== 小屏手机（≤420px）再收一收 ==================== */
-        @media screen and (max-width: 420px) {
-            #main { padding: 56px 10px 72px !important; }
-
-            #logo-img {
-                width: 80px !important;
-                height: 80px !important;
-            }
-
-            .hitokoto-text,
-            .des { font-size: 0.88rem !important; }
-
-            .time-text { font-size: 1.3rem !important; }
-
-            .social .link {
-                width: 38px !important;
-                height: 38px !important;
-                line-height: 38px !important;
-            }
-        }
-    </style>
-
 <body>
     <!--加载动画-->
     <div id="loading-box">
@@ -432,7 +70,7 @@
     <section id="section" class="section">
         <!-- 背景图片 -->
         <div class="bg-all">
-            <img id="bg" onerror="this.src='img/background1.webp'"></img>   //<img id="bg" onerror="this.classList.add('error');"></img>
+            <img id="bg" alt="" onerror="this.src='img/background1.webp'">
             <div class="cover"></div>
         </div>
         <!-- 鼠标指针 -->
@@ -475,8 +113,7 @@
                                 <a href="mailto:167499304@qq.com" class="link" id="email">
                                     <i class="fa-solid fa-envelope"></i>
                                 </a>
-                                <a href="https://space.bilibili.com/
-3546818287766345" class="link" id="bilibili"
+                                <a href="https://space.bilibili.com/3546818287766345" class="link" id="bilibili"
                                     target="_blank">
                                     <i class="fa-brands fa-bilibili"></i>
                                 </a>
@@ -832,7 +469,7 @@
                     <a href="https://imsyy.top" id="power-text">hanbing</a>
                 </span>
                 <!-- 以下信息请不要修改哦 -->
-                <span id="made">&amp;&nbsp;Made&nbsp;by&nbsp;hanbing</a></span>
+                <span id="made">&amp;&nbsp;Made&nbsp;by&nbsp;hanbing</span>
                 <!-- 站点备案 -->
             </div>
             <!-- 歌词显示 -->
@@ -865,18 +502,72 @@ if ("serviceWorker" in navigator) {
 
 <!-- Bootstrap JS，换成 bundle，包含 Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- noscript -->
-    <noscript>
-        <div class="noscript fixed-top">请开启 JavaScript</div>
-    </noscript>
-    <!-- JS -->
-    <script type="text/javascript" src="./js/main.js"></script>
-    <script type="text/javascript" src="./js/set.js"></script>
-    <script type="text/javascript" src="./js/time.js"></script>
-    <script type="text/javascript" src="./js/js.cookie.js"></script>
-    <script type="text/javascript"
-        src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/bootstrap/5.1.0/js/bootstrap.min.js">
-    </script>
+
+<!-- 移动端补丁：固定定位修正 + 音乐列表入口 + 面板滚动锁定 -->
+<script>
+    (function () {
+        /* ① #section 上的 transform / filter 会让内部的 position:fixed 元素
+              （背景图、全屏面板）相对“整篇文档”定位，滚动后就跑偏。
+              手机端改成整页滚动，必须把这两个属性去掉；大屏保留 scale(1)/blur(0) 原状。 */
+        function fixFixed() {
+            var sec = document.getElementById("section");
+            if (!sec) return;
+            if (window.innerWidth < 992) {
+                sec.style.setProperty("transform", "none", "important");
+                sec.style.setProperty("filter", "none", "important");
+            } else {
+                sec.style.setProperty("transform", "scale(1)", "important");
+                sec.style.setProperty("filter", "blur(0px)", "important");
+            }
+        }
+        window.addEventListener("load", fixFixed);
+        var rzTimer = null;
+        window.addEventListener("resize", function () {
+            clearTimeout(rzTimer);
+            rzTimer = setTimeout(fixFixed, 200);
+        });
+
+        /* ② 打开全屏面板时锁住底层滚动，关闭后回到原来的位置 */
+        var lastY = 0;
+        var boxOpen = false;
+        window.addEventListener(
+            "scroll",
+            function () {
+                if (!boxOpen) {
+                    lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
+                }
+            },
+            { passive: true }
+        );
+        $(document).on("click", "#openmore, #music-open", function () {
+            boxOpen = true;
+            $("body").addClass("box-open");
+        });
+        $(document).on("click", "#closemore", function () {
+            $("body").removeClass("box-open");
+            /* 原逻辑把 #more 设成了 display:none !important，关不掉；这里清掉内联样式，
+               手机端回到样式表里的常驻显示，桌面端回到默认隐藏 */
+            var more = document.getElementById("more");
+            if (more) more.style.removeProperty("display");
+            boxOpen = false;
+            var y = lastY;
+            /* 等列表恢复显示、文档高度回弹之后再回滚，否则会被浏览器夹到 0 */
+            requestAnimationFrame(function () {
+                setTimeout(function () {
+                    window.scrollTo(0, y);
+                }, 0);
+            });
+        });
+
+        /* ③ 手机端点“音乐列表”也能打开 APlayer 面板（原逻辑只在宽屏生效） */
+        $(document).on("click", "#music-open", function () {
+            if (window.innerWidth >= 992) return;
+            $("#box").css("display", "block");
+            $("#row").css("display", "none");
+            $("#more").css("cssText", "display:none !important");
+        });
+    })();
+</script>
 </body>
 
 </html>
