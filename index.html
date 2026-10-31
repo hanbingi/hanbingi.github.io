@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-    <title>寒冰丨ice</title>
+    <title>寒冰 ice</title>
     <meta name="description" content="00后，学生">
     <meta name="keywords" content="Java,Spring,个人博客，微信小程序，博客">
     <meta name="format-detection" content="telephone=no">
-    <link rel="shortcut icon" href="https://q1.qlogo.cn/g?b=qq&amp;nk=167499304&amp;s=640">
+    <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="static/css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.css">
@@ -340,11 +340,11 @@
                             <div class="webinfo">
                                 <div class="webinfo-item">
                                     <div class="webinfo-site-uv-name">本站访客数 :</div>
-                                    <div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div>
+                                    <div class="webinfo-site-uv-count" id="vercount_value_site_uv">-</div>
                                 </div>
                                 <div class="webinfo-item">
                                     <div class="webinfo-site-name">本站总访问量 :</div>
-                                    <div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div>
+                                    <div class="webinfo-site-pv-count" id="vercount_value_site_pv">-</div>
                                 </div>
                             </div>
                         </div>
@@ -372,7 +372,7 @@
                             <div class="skillbar">
                                 <div class="skillbar-title"
                                     style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 75%">
-                                    <span>英语</span>
+                                    <span>社交</span>
                                 </div>
                                 <div class="skill-bar-percent">75%</div>
                             </div>
@@ -401,10 +401,10 @@
 <hr>
                         <h2>其他网站</h2>
                         <div>
-                            <a href="https://ihanbingi.github.io/">寒冰的网站</a><br>
+                            <a href="https://ihanbingi.github.io/">寒冰的博客</a><br>
                             <a href="https://hanbingi.github.io/photos/">寒冰的相册</a><br>
                             <a href="https://hanbingi.github.io/download/">寒冰做的一些东西</a><br>
-<a href="https://hanbing.github.io/minecraft_ai">我的世界</a><br>
+<a href="https://ihanbingx.github.io/">ice起始页</a><br>
 <a href="https://hanbingi.github.io/more/">更多</a><br>
                         </div>
                     </div>
@@ -415,7 +415,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.js"></script>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- ==== 访问统计：Vercount（替代失效的不蒜子） ==== -->
+    <script defer src="https://events.vercount.one/js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" async></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
@@ -499,7 +502,7 @@
     <script type="text/javascript">
         console.clear();
         console.log("%c 有朋自远方来, 不亦说乎.", "background:#24272A; color:#ffffff", "");
-        console.log("%c Github %c", "background:#24272A; color:#ffffff", "", "https://github.com/laoxuai");
+        console.log("%c Github %c", "background:#24272A; color:#ffffff", "", "https://github.com/hanbingi");
         console.log("%c 版本号: %c", "background:#24272A; color:#ffffff", "", "1.0.0");
 
         var OriginTitle = document.title;
@@ -598,7 +601,6 @@
         this.link();
     }
     Dot.prototype.die = function() {
-        // 只标记，不删除。数组会在 drawIfMouseMoving 里压实
         this.dead = true;
     }
 
@@ -718,7 +720,6 @@
         requestAnimationFrame(animate);
     }
 
-    /* 用 addEventListener，避免被其它库（maodian.js 等）的 onmousemove 赋值覆盖 */
     window.addEventListener('mousemove', function(e){
         mouseMoving = true;
         mouseX = e.clientX;
@@ -736,7 +737,6 @@
     function drawIfMouseMoving(){
         if (!mouseMoving) return;
 
-        // 关键修复：调用前先压实数组，移除所有 dead dots，重排 id
         var alive = [];
         for (var i = 0; i < dots.length; i++) {
             if (dots[i] && !dots[i].dead) {
